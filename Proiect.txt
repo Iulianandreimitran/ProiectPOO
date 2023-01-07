@@ -1,0 +1,4 @@
+Codul nu genereaza machiaj,dieta random(deoarece Costuri nu se schimba la rulare)
+La fiecare rulare a programului trebuie sterse datele din fisierele cu meniu si figurantii din csv urile cu cast.
+Daca nu sunt sterse atunci se vor mai adauga 132 de figuranti, respectiv inca un meniu, si costuri pentru numarul mai mare de persoane.
+Asta sunt erorile pe care le-am vazut pana la trimiterea proiectului.
