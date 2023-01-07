@@ -38,16 +38,16 @@ public:
         g.open("wednesdayCastEn.csv", ios::app);
         h.open("wednesdayCastRo.csv", ios::app);
         string nume[25], prenume[25],figurant[200];
-        string num,prenum;
+        string nume_figurant,prenume_figurant;
         int n = 132;
         string line;
         for(int i = 0; i < 25; i++){
             getline(f,line);
             stringstream s(line);
-            getline(s, num , ',');
-            getline(s, prenum, '\n');
-            nume[i] = num;
-            prenume[i] = prenum;
+            getline(s, nume_figurant , ',');
+            getline(s, prenume_figurant, '\n');
+            nume[i] = nume_figurant;
+            prenume[i] = prenume_figurant;
         }
         for(int j = 0; j < n; j++){
             stringstream ss;
@@ -66,6 +66,7 @@ public:
         f.open("wednesdayCastEn.csv", ios::in);
         string line;
         string nume_complet, rol1;
+
         while(!f.eof()){
             getline(f,line);
             stringstream s(line);
@@ -92,7 +93,7 @@ public:
         int n = numeComplet.size() - 1;
         string act = "actor", fig = "extra";
         for (int i = 0; i < n; i++){
-            if(rol[i].find(act) != -1 || rol[i].find(fig) != -1)
+            if(!rol[i].find(act) || !rol[i].find(fig) )
             {
                 nume_act_si_fig.push_back(numeComplet[i]);
             }
