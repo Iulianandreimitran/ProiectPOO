@@ -77,7 +77,6 @@ public:
             numeComplet.push_back(nume_complet);
             rol.push_back(rol1);
         }
-        int n = numeComplet.size() -1;
         f.close();
     }
 
@@ -116,22 +115,22 @@ public:
 
     float costMachiaj(int perioada){
         try{
-        int i;
-        int n = nume_act_si_fig.size() - 1;
-        int cost_machiaj = 0;
-        for(i = 0; i < n; i++){
-            for(int j = 0; j < 5; j++){
-                if(machiajRo[i] == machiaj1[j]){
-                    cost_machiaj = cost_machiaj + costM[j];
+            int i;
+            int n = nume_act_si_fig.size() - 1;
+            int cost_machiaj = 0;
+            for(i = 0; i < n; i++){
+                for(int j = 0; j < 5; j++){
+                    if(machiajRo[i] == machiaj1[j]){
+                        cost_machiaj = cost_machiaj + costM[j];
+                    }
                 }
             }
-        }
-        int costMachiajTotal = inmultire<int>(perioada,cost_machiaj);
-        return costMachiajTotal;
-        if(perioada < 0){
-            cout << "Perioada e mai mica de 0" << endl;
-            throw perioada;
-        }
+            int costMachiajTotal = inmultire<int>(perioada,cost_machiaj);
+            return costMachiajTotal;
+            if(perioada < 0){
+                cout << "Perioada e mai mica de 0" << endl;
+                throw perioada;
+            }
         }
         catch (int perioada){
             cout << "Exceptia a fost prinsa" << endl;
@@ -150,22 +149,23 @@ public:
 
     float costMancare(int perioada){
         try{
-        int n = numeComplet.size() - 1;
-        int i;
-        int cost_mancare = 0;
-        for(i = 0; i < n; i++){
-            for(int j = 0; j < 3; j++){
-                if(dietaEn[i] == dietEn[j]){
-                    cost_mancare = cost_mancare + costDiet[j];
+            int n = numeComplet.size() - 1;
+            int i;
+            int cost_mancare = 0;
+
+            for(i = 0; i < n; i++){
+                for(int j = 0; j < 3; j++){
+                    if(dietaEn[i] == dietEn[j]){
+                        cost_mancare = cost_mancare + costDiet[j];
+                    }
                 }
             }
-        }
-        int costMancareTotal = inmultire<int>(perioada,cost_mancare);
-        return costMancareTotal;
-        if(perioada < 0){
-            cout << "Perioada e mai mica de 0" << endl;
-            throw perioada;
-        }
+            int costMancareTotal = inmultire<int>(perioada,cost_mancare);
+            return costMancareTotal;
+            if(perioada < 0){
+                cout << "Perioada e mai mica de 0" << endl;
+                throw perioada;
+            }
         }
         catch (int perioada){
             cout << "Exceptia a fost prinsa" << endl;
@@ -174,31 +174,31 @@ public:
     
     float costCazare(int perioada){
         try{
-        int nrCastInitial = 0;
-        int nrFiguranti = 0;
-        int n = numeComplet.size() - 1;
-        for(int i = 0; i < n; i++){
-            if(rol[i] == "extra"){
-                nrFiguranti++;
+            int nrCastInitial = 0;
+            int nrFiguranti = 0;
+            int n = numeComplet.size() - 1;
+            for(int i = 0; i < n; i++){
+                if(rol[i] == "extra"){
+                    nrFiguranti++;
+                }
+                else{
+                nrCastInitial++;
+                }
+                }
+            int camereCast = nrCastInitial / 2;
+            int locuriOcupateCast = camereCast * 2;
+            int camereFiguranti = nrFiguranti / 3;
+            if((nrCastInitial - locuriOcupateCast) % 2 !=0){
+                camereCast++;
+            }//Figuranti sunt 132 deci e divizibil cu 3 si nu mai facem operatia de mai sus
+            int costCast = inmultire<int>(camereCast,350);
+            int costFiguranti = inmultire<int>(camereFiguranti,420);
+            float cost_cazare = inmultire<float>(costCast,perioada) + inmultire<float>(costFiguranti,perioada);
+            return cost_cazare;
+            if(perioada < 0){
+                cout << "Perioada e mai mica de 0" << endl;
+                throw perioada;
             }
-            else{
-            nrCastInitial++;
-            }
-            }
-        int camereCast = nrCastInitial / 2;
-        int locuriOcupateCast = camereCast * 2;
-        int camereFiguranti = nrFiguranti / 3;
-        if((nrCastInitial - locuriOcupateCast) % 2 !=0){
-            camereCast++;
-        }//Figuranti sunt 132 deci e divizibil cu 3 si nu mai facem operatia de mai sus
-        int costCast = inmultire<int>(camereCast,350);
-        int costFiguranti = inmultire<int>(camereFiguranti,420);
-        float cost_cazare = inmultire<float>(costCast,perioada) + inmultire<float>(costFiguranti,perioada);
-        return cost_cazare;
-        if(perioada < 0){
-            cout << "Perioada e mai mica de 0" << endl;
-            throw perioada;
-        }
         }
         catch (int perioada){
             cout << "Exceptia a fost prinsa" << endl;
@@ -207,29 +207,29 @@ public:
 
     float costBauturi(int perioada){
         try{
-        int n = numeComplet.size() - 1;
-        int cantitateApa = n;
-        int cantitateCafea = n * 0.5;
-        int cantitateSuc = n * 0.8;
-        int sticleApa = cantitateApa/2;
-        int sticleCafea = cantitateCafea;
-        int sticleSuc = cantitateSuc;
-        if(cantitateApa % 2 !=0){
-            sticleApa++;
-        }
-        if(n % 2 !=0){
-            sticleCafea++;
-        }
-        if(cantitateSuc % 2 !=0){
-            sticleSuc++;
-        }
-        int cost_bauturi = inmultire<int>(sticleApa,6) + inmultire<int>(sticleCafea,30) + inmultire<int>(sticleSuc,8);
-        float costBauturaTotal = inmultire<int>(cost_bauturi,perioada);
-        return costBauturaTotal;
-        if(perioada < 0){
-            cout << "Perioada e mai mica de 0" << endl;
-            throw perioada;
-        }
+            int n = numeComplet.size() - 1;
+            int cantitateApa = n;
+            int cantitateCafea = n * 0.5;
+            int cantitateSuc = n * 0.8;
+            int sticleApa = cantitateApa/2;
+            int sticleCafea = cantitateCafea;
+            int sticleSuc = cantitateSuc;
+            if(cantitateApa % 2 !=0){
+                sticleApa++;
+            }
+            if(n % 2 !=0){
+                sticleCafea++;
+            }
+            if(cantitateSuc % 2 !=0){
+                sticleSuc++;
+            }
+            int cost_bauturi = inmultire<int>(sticleApa,6) + inmultire<int>(sticleCafea,30) + inmultire<int>(sticleSuc,8);
+            float costBauturaTotal = inmultire<int>(cost_bauturi,perioada);
+            return costBauturaTotal;
+            if(perioada < 0){
+                cout << "Perioada e mai mica de 0" << endl;
+                throw perioada;
+            }
         }
         catch (int perioada){
             cout << "Exceptia a fost prinsa" << endl;
@@ -239,13 +239,13 @@ public:
 
     float costCastel(int perioada){
         try{
-        float cost_Castel = perioada * 10000 - 2000 * perioada / 10;
-        return cost_Castel;
-        if(perioada < 0){
-            cout << "Perioada e mai mica de 0" << endl;
-            throw perioada;
-        }
-        }
+            float cost_Castel = perioada * 10000 - 2000 * perioada / 10;
+            return cost_Castel;
+            if(perioada < 0){
+                cout << "Perioada e mai mica de 0" << endl;
+                throw perioada;
+            }
+            }
         catch (int perioada){
             cout << "Exceptia a fost prinsa" << endl;
         }
@@ -270,27 +270,27 @@ public:
 
     void get_pret(int perioada){
         try{
-        float castel = this->costCastel(perioada);
-        float bauturi = this->costBauturi(perioada);
-        float cazare = this->costCazare(perioada);
-        float mancare = this->costMancare(perioada);
-        float machiaj = this->costMachiaj(perioada);
-        float transport = this->transport() * 2 ;
-        float total = (castel + bauturi + cazare + mancare + machiaj + transport);
-        ofstream f,g;
-        f.open("Cost.csv",ios::app);
-        g.open("Costuri.csv",ios::app);
-        f << fixed << setprecision(2);
-        g << fixed << setprecision(2);
-        g << perioada << " zile," << transport << "RON," << cazare << "RON," << machiaj << "RON," << mancare + bauturi << "RON," << castel << "RON," << total << "RON\n";
-        f << perioada << " days," << transport/4.64 << "$," << cazare/4.64 << "$," << machiaj/4.64 << "$," << (mancare + bauturi)/4.64 << "$," << castel/4.64 << "$," << total/4.64 << "$\n";
-        f.close();
-        g.close();
-        if(perioada < 0){
-            cout << "Perioada e mai mica de 0" << endl;
-            throw perioada;
-        }
-        }
+            float castel = this->costCastel(perioada);
+            float bauturi = this->costBauturi(perioada);
+            float cazare = this->costCazare(perioada);
+            float mancare = this->costMancare(perioada);
+            float machiaj = this->costMachiaj(perioada);
+            float transport = this->transport() * 2 ;
+            float total = (castel + bauturi + cazare + mancare + machiaj + transport);
+            ofstream f,g;
+            f.open("Cost.csv",ios::app);
+            g.open("Costuri.csv",ios::app);
+            f << fixed << setprecision(2);
+            g << fixed << setprecision(2);
+            g << perioada << " zile," << transport << "RON," << cazare << "RON," << machiaj << "RON," << mancare + bauturi << "RON," << castel << "RON," << total << "RON\n";
+            f << perioada << " days," << transport/4.64 << "$," << cazare/4.64 << "$," << machiaj/4.64 << "$," << (mancare + bauturi)/4.64 << "$," << castel/4.64 << "$," << total/4.64 << "$\n";
+            f.close();
+            g.close();
+            if(perioada < 0){
+                cout << "Perioada e mai mica de 0" << endl;
+                throw perioada;
+            }
+            }
         catch (int perioada){
             cout << "Exceptia a fost prinsa" << endl;
         }
