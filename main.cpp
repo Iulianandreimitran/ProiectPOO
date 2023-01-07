@@ -37,12 +37,10 @@ public:
         f.open("numeRandom.csv",ios::in);
         g.open("wednesdayCastEn.csv", ios::app);
         h.open("wednesdayCastRo.csv", ios::app);
-
         string nume[25], prenume[25],figurant[200];
         string num,prenum;
         int n = 132;
         string line;
-
         for(int i = 0; i < 25; i++){
             getline(f,line);
             stringstream s(line);
@@ -68,7 +66,6 @@ public:
         f.open("wednesdayCastEn.csv", ios::in);
         string line;
         string nume_complet, rol1;
-
         while(!f.eof()){
             getline(f,line);
             stringstream s(line);
@@ -102,23 +99,17 @@ public:
         }
     }
     
-    void machiaj(){
-        int nr;
-        int m = nume_act_si_fig.size() - 1;
-        
-        for(int i = 0; i < m; i++){
-            nr = rand()%5;
-            machiajRo.push_back(machiaj1[nr]);
-            machiajEn.push_back(makeup[nr]);
-        }
-    }
-
     float costMachiaj(int perioada){
         try{
-            int i;
+            int nr;
             int n = nume_act_si_fig.size() - 1;
+            for(int i = 0; i < n; i++){
+                nr = rand()%5;
+                machiajRo.push_back(machiaj1[nr]);
+                machiajEn.push_back(makeup[nr]);
+        }
             int cost_machiaj = 0;
-            for(i = 0; i < n; i++){
+            for(int i = 0; i < n; i++){
                 for(int j = 0; j < 5; j++){
                     if(machiajRo[i] == machiaj1[j]){
                         cost_machiaj = cost_machiaj + costM[j];
@@ -137,23 +128,17 @@ public:
         }
     }
 
-    void dieta(){
-        int n = numeComplet.size() - 1;
-        for(int i = 0; i < n; i++){
-            int nr;
-            nr = rand()%3;
-            dietaEn.push_back(dietEn[nr]);
-            dietaRo.push_back(dietRo[nr]);
-        }
-    }
-
     float costMancare(int perioada){
         try{
             int n = numeComplet.size() - 1;
-            int i;
+            for(int i = 0; i < n; i++){
+                int nr;
+                nr = rand()%3;
+                dietaEn.push_back(dietEn[nr]);
+                dietaRo.push_back(dietRo[nr]);
+        }
             int cost_mancare = 0;
-
-            for(i = 0; i < n; i++){
+            for(int i = 0; i < n; i++){
                 for(int j = 0; j < 3; j++){
                     if(dietaEn[i] == dietEn[j]){
                         cost_mancare = cost_mancare + costDiet[j];
@@ -392,8 +377,6 @@ int main(){
     pret_obj.figuranti();
     pret_obj.persCast();
     pret_obj.cautaActorisiFiguranti();
-    pret_obj.dieta();
-    pret_obj.machiaj();
     pret_obj.get_pret(30);
     pret_obj.get_pret(45);
     pret_obj.get_pret(60);
